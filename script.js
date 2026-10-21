@@ -1,12 +1,12 @@
 "use strict";
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 100;
 const $ = (id) => document.getElementById(id);
-const controls = [$("search"), $("dataset-filter"), $("folder-filter"), $("type-filter")];
+const collator = new Intl.Collator("zh-CN", { numeric: true });
 let datasets = [];
-let files = [];
 let currentPage = 1;
 let loading = false;
+let loaded = false;
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -16,7 +16,7 @@ function element(tag, className, text) {
 }
 
 function formatSize(bytes) {
-  if (bytes === null || bytes === undefined) return "大小未知";
+  if (bytes === null) return "未知";
   if (bytes < 1024) return `${bytes} B`;
   const units = ["KiB", "MiB", "GiB", "TiB", "PiB"];
   let value = bytes / 1024;
@@ -25,87 +25,143 @@ function formatSize(bytes) {
   return `${Number(value.toFixed(2))} ${units[unit]}`;
 }
 
-function validateManifest(data) {
+function validName(name) {
+  return typeof name === "string" && name.length > 0 && name !== "." && name !== ".." && !/[\\/\u0000-\u001f]/.test(name);
+}
+
+function readManifest(data) {
   if (!data || data.schemaVersion !== 1 || !Array.isArray(data.datasets)) throw new Error("Unsupported manifest");
-  const datasetIds = new Set();
-  const entries = [];
-  for (const dataset of data.datasets) {
-    if (!dataset || typeof dataset.id !== "string" || !dataset.id || datasetIds.has(dataset.id) || typeof dataset.name !== "string" || !dataset.name || !Array.isArray(dataset.files)) throw new Error("Invalid dataset");
-    datasetIds.add(dataset.id);
-    const ids = new Set();
+  const ids = new Set();
+  return data.datasets.map((dataset) => {
+    if (!dataset || !validName(dataset.id) || ids.has(dataset.id) || !validName(dataset.name) || !Array.isArray(dataset.files)) throw new Error("Invalid dataset");
+    ids.add(dataset.id);
+    const directories = new Map([["", { folders: new Map(), files: [] }]]);
+    const fileIds = new Set();
+    const paths = new Set();
     for (const file of dataset.files) {
-      if (!file || typeof file.id !== "string" || !file.id || ids.has(file.id) || typeof file.name !== "string" || !file.name || typeof file.type !== "string" || !file.type || typeof file.folder !== "string" || typeof file.url !== "string") throw new Error("Invalid file entry");
-      ids.add(file.id);
+      if (!file || typeof file.id !== "string" || !file.id || fileIds.has(file.id) || !validName(file.name) || typeof file.folder !== "string" || typeof file.url !== "string") throw new Error("Invalid file");
       if (file.sizeBytes !== null && (!Number.isSafeInteger(file.sizeBytes) || file.sizeBytes < 0)) throw new Error("Invalid file size");
-      if (file.description !== undefined && typeof file.description !== "string") throw new Error("Invalid description");
+      const parts = file.folder ? file.folder.split("/") : [];
+      if (!parts.every(validName)) throw new Error("Invalid folder path");
+      const path = [...parts, file.name].join("/");
+      if (paths.has(path)) throw new Error("Duplicate file path");
+      paths.add(path);
+      fileIds.add(file.id);
       const url = new URL(file.url);
       if (url.protocol !== "https:" || url.username || url.password) throw new Error("Download URL must be public HTTPS");
       if ([...url.searchParams.keys()].some((key) => /signature|token|q-sign|x-cos-security|x-amz-/i.test(key))) throw new Error("Temporary signed URLs are not supported");
-      entries.push({ ...file, datasetId: dataset.id, datasetName: dataset.name, type: file.type.toUpperCase() });
+      let parent = "";
+      for (const part of parts) {
+        const child = parent ? `${parent}/${part}` : part;
+        directories.get(parent).folders.set(part, child);
+        if (!directories.has(child)) directories.set(child, { folders: new Map(), files: [] });
+        parent = child;
+      }
+      directories.get(parent).files.push(file);
     }
+    for (const [path, directory] of directories) {
+      if (path && paths.has(path)) throw new Error("Conflicting file and folder path");
+      directory.files.sort((a, b) => collator.compare(a.name, b.name));
+    }
+    return { id: dataset.id, name: dataset.name, directories };
+  }).sort((a, b) => collator.compare(a.name, b.name));
+}
+
+function route(dataset, path = "") {
+  return dataset ? `#/${[dataset.id, ...(path ? path.split("/") : [])].map(encodeURIComponent).join("/")}` : "#/";
+}
+
+function currentDirectory() {
+  if (!location.hash || location.hash === "#/" || location.hash === "#") return { dataset: null, path: "" };
+  try {
+    if (!location.hash.startsWith("#/")) return null;
+    const parts = location.hash.slice(2).split("/").map(decodeURIComponent);
+    if (!parts.every(validName)) return null;
+    const dataset = datasets.find((item) => item.id === parts[0]);
+    const path = parts.slice(1).join("/");
+    return dataset && dataset.directories.has(path) ? { dataset, path } : null;
+  } catch { return null; }
+}
+
+function folderLink(name, href, parent = false) {
+  const link = element("a", parent ? "parent-link" : "folder-link");
+  link.href = href;
+  if (!parent) {
+    // Fixed icon markup; all names from the manifest are rendered as text.
+    link.innerHTML = '<svg class="folder-icon" aria-hidden="true" viewBox="0 0 24 20"><path d="M2 3h7l3 3h10v12H2Z" stroke-linejoin="round"/></svg>';
   }
-  return entries;
+  link.append(element("span", "", name));
+  return link;
 }
 
-function setOptions(select, options, placeholder, selected = "") {
-  select.replaceChildren(new Option(placeholder, ""));
-  for (const [value, label] of options) select.add(new Option(label, value));
-  select.value = options.some(([value]) => value === selected) ? selected : "";
+function renderBreadcrumbs(dataset, path) {
+  const nav = $("breadcrumbs");
+  nav.replaceChildren();
+  nav.hidden = !dataset;
+  if (!dataset) return;
+  const home = element("a", "", "目录首页");
+  home.href = route(null);
+  nav.append(home);
+  const parts = path ? path.split("/") : [];
+  for (const [index, name] of [dataset.name, ...parts].entries()) {
+    const separator = element("span", "separator", "/");
+    separator.setAttribute("aria-hidden", "true");
+    nav.append(separator);
+    const crumb = element(index === parts.length ? "span" : "a", "", name);
+    if (index === parts.length) crumb.setAttribute("aria-current", "page");
+    else crumb.href = route(dataset, parts.slice(0, index).join("/"));
+    nav.append(crumb);
+  }
 }
 
-function refreshFolders() {
-  const datasetId = $("dataset-filter").value;
-  const folders = [...new Set(files.filter((file) => !datasetId || file.datasetId === datasetId).map((file) => file.folder))].sort();
-  setOptions($("folder-filter"), folders.map((folder) => [`folder:${folder}`, folder || "根目录"]), "全部文件夹", $("folder-filter").value);
-}
-
-function makeRow(file) {
-  const row = element("tr");
+function folderRow(name, href, parent = false) {
+  const row = element("tr", parent ? "parent-row" : "folder-row");
   const nameCell = element("td");
-  const title = element("div", "file-title");
-  const icon = element("span", "file-icon", file.type);
-  icon.setAttribute("aria-hidden", "true");
-  const meta = element("div", "file-meta");
-  meta.append(element("span", "file-name", file.name));
-  meta.append(element("span", "file-path", `${file.datasetName} / ${file.folder || "根目录"}`));
-  if (file.description) meta.append(element("p", "file-description", file.description));
-  title.append(icon, meta);
-  nameCell.append(title);
-  const typeCell = element("td");
-  typeCell.append(element("span", "type-badge", file.type));
-  const sizeCell = element("td", "file-size", formatSize(file.sizeBytes));
-  if (file.sizeBytes !== null) sizeCell.title = `${file.sizeBytes.toLocaleString("zh-CN")} 字节`;
-  const actionCell = element("td");
-  const link = element("a", "download-button");
+  nameCell.append(folderLink(name, href, parent));
+  row.append(nameCell, element("td", "size", "—"), element("td", "action"));
+  return row;
+}
+
+function fileRow(file) {
+  const row = element("tr", "file-row");
+  const size = element("td", "size", formatSize(file.sizeBytes));
+  if (file.sizeBytes !== null) size.title = `${file.sizeBytes.toLocaleString("zh-CN")} 字节`;
+  const action = element("td", "action");
+  const link = element("a", "download-link", "下载");
   link.href = file.url;
   link.download = file.name;
   link.target = "_blank";
   link.rel = "noopener noreferrer";
   link.referrerPolicy = "no-referrer";
   link.setAttribute("aria-label", `下载 ${file.name}`);
-  // This SVG is fixed application markup. Manifest content is rendered with textContent.
-  link.innerHTML = '<svg aria-hidden="true" viewBox="0 0 20 20"><path d="M10 2v10m-4-4 4 4 4-4M3 13v4h14v-4"/></svg>';
-  link.append(document.createTextNode("下载"));
-  actionCell.append(link);
-  row.append(nameCell, typeCell, sizeCell, actionCell);
+  action.append(link);
+  row.append(element("td", "file-name", file.name), size, action);
   return row;
 }
 
 function render() {
-  const query = $("search").value.trim().toLocaleLowerCase();
-  const datasetId = $("dataset-filter").value;
-  const folder = $("folder-filter").value;
-  const type = $("type-filter").value;
-  const matches = files.filter((file) => (!datasetId || file.datasetId === datasetId) && (!folder || `folder:${file.folder}` === folder) && (!type || file.type === type) && (!query || `${file.name} ${file.folder} ${file.datasetName} ${file.description || ""}`.toLocaleLowerCase().includes(query)));
-  const pageCount = Math.max(1, Math.ceil(matches.length / PAGE_SIZE));
+  const current = currentDirectory();
+  const { dataset, path } = current || { dataset: null, path: "" };
+  renderBreadcrumbs(dataset, path);
+  const entries = [];
+  if (dataset) {
+    const directory = dataset.directories.get(path);
+    for (const [name, child] of [...directory.folders].sort((a, b) => collator.compare(a[0], b[0]))) entries.push({ name, href: route(dataset, child) });
+    for (const file of directory.files) entries.push({ file });
+  } else {
+    for (const item of datasets) entries.push({ name: item.name, href: route(item) });
+  }
+  const pageCount = Math.max(1, Math.ceil(entries.length / PAGE_SIZE));
   currentPage = Math.min(currentPage, pageCount);
   const fragment = document.createDocumentFragment();
-  for (const file of matches.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)) fragment.append(makeRow(file));
+  if (dataset) {
+    const parent = path ? route(dataset, path.split("/").slice(0, -1).join("/")) : route(null);
+    fragment.append(folderRow(".. 返回上级", parent, true));
+  }
+  for (const entry of entries.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)) fragment.append(entry.file ? fileRow(entry.file) : folderRow(entry.name, entry.href));
   $("file-list").replaceChildren(fragment);
-  $("results-count").textContent = `显示 ${matches.length.toLocaleString("zh-CN")} 个文件 / 共 ${files.length.toLocaleString("zh-CN")} 个`;
-  $("table-wrap").hidden = matches.length === 0;
-  $("empty-state").hidden = matches.length !== 0;
-  $("clear-filters").hidden = !query && !datasetId && !folder && !type;
+  $("table-wrap").hidden = false;
+  $("status").textContent = !current ? "该目录不存在，请从目录首页重新进入。" : entries.length ? "" : "此目录为空。";
   $("pagination").hidden = pageCount <= 1;
   $("page-info").textContent = `第 ${currentPage} / ${pageCount} 页`;
   $("previous-page").disabled = currentPage <= 1;
@@ -115,42 +171,26 @@ function render() {
 async function loadManifest() {
   if (loading) return;
   loading = true;
-  controls.forEach((control) => { control.disabled = true; });
+  $("retry").disabled = true;
   $("load-error").hidden = true;
-  $("table-wrap").hidden = true;
-  $("empty-state").hidden = true;
-  $("pagination").hidden = true;
-  $("results-count").textContent = "正在加载文件清单…";
+  $("status").textContent = "正在加载目录…";
   try {
     const response = await fetch("./datasets.json", { cache: "no-cache", signal: AbortSignal.timeout(20000) });
     if (!response.ok) throw new Error(`Manifest HTTP ${response.status}`);
-    const data = await response.json();
-    files = validateManifest(data);
-    datasets = data.datasets;
-    setOptions($("dataset-filter"), datasets.map((dataset) => [dataset.id, dataset.name]), "全部数据集");
-    refreshFolders();
-    setOptions($("type-filter"), [...new Set(files.map((file) => file.type))].sort().map((type) => [type, type]), "全部类型");
-    $("dataset-count").textContent = datasets.length.toLocaleString("zh-CN");
-    $("file-count").textContent = files.length.toLocaleString("zh-CN");
-    const known = files.filter((file) => file.sizeBytes !== null);
-    $("total-size").textContent = known.length ? formatSize(known.reduce((sum, file) => sum + file.sizeBytes, 0)) : "未知";
-    $("size-caption").textContent = known.length === files.length ? "文件总大小" : "已知文件大小（部分）";
-    controls.forEach((control) => { control.disabled = false; });
-    currentPage = 1;
+    datasets = readManifest(await response.json());
+    loaded = true;
     render();
   } catch (error) {
     $("load-error").hidden = false;
-    $("results-count").textContent = "文件清单加载失败";
-    console.error("Dataset manifest could not be loaded:", error.message);
+    $("status").textContent = "";
+    console.error("Dataset directory could not be loaded:", error.message);
   } finally {
     loading = false;
+    $("retry").disabled = false;
   }
 }
 
-$("search").addEventListener("input", () => { currentPage = 1; render(); });
-$("dataset-filter").addEventListener("change", () => { refreshFolders(); currentPage = 1; render(); });
-for (const id of ["folder-filter", "type-filter"]) $(id).addEventListener("change", () => { currentPage = 1; render(); });
-$("clear-filters").addEventListener("click", () => { controls.forEach((control) => { control.value = ""; }); refreshFolders(); currentPage = 1; render(); $("search").focus(); });
+window.addEventListener("hashchange", () => { currentPage = 1; if (loaded) render(); });
 $("previous-page").addEventListener("click", () => { currentPage -= 1; render(); });
 $("next-page").addEventListener("click", () => { currentPage += 1; render(); });
 $("retry").addEventListener("click", loadManifest);
