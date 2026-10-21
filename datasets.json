@@ -5046,7 +5046,15 @@
           "type": "PY",
           "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/Jinze-FullChain/tools/validate_jinze_fullchain.py"
         }
-      ]
+      ],
+      "archive": {
+        "name": "Jinze-FullChain.zip",
+        "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/Jinze-FullChain/_downloads/Jinze-FullChain.zip",
+        "format": "ZIP",
+        "sizeBytes": 540693525,
+        "fileCount": 630,
+        "sha256": "203616f1bce6651c16750862b866c00dbd5a6059679ce51f84152e7d00e2d3ec"
+      }
     }
   ]
 }

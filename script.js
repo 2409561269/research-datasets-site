@@ -29,6 +29,13 @@ function validName(name) {
   return typeof name === "string" && name.length > 0 && name !== "." && name !== ".." && !/[\\/\u0000-\u001f]/.test(name);
 }
 
+function validateDownloadURL(value) {
+  if (typeof value !== "string") throw new Error("Invalid download URL");
+  const url = new URL(value);
+  if (url.protocol !== "https:" || url.username || url.password) throw new Error("Download URL must be public HTTPS");
+  if ([...url.searchParams.keys()].some((key) => /signature|token|q-sign|x-cos-security|x-amz-/i.test(key))) throw new Error("Temporary signed URLs are not supported");
+}
+
 function readManifest(data) {
   if (!data || data.schemaVersion !== 1 || !Array.isArray(data.datasets)) throw new Error("Unsupported manifest");
   const ids = new Set();
@@ -47,9 +54,7 @@ function readManifest(data) {
       if (paths.has(path)) throw new Error("Duplicate file path");
       paths.add(path);
       fileIds.add(file.id);
-      const url = new URL(file.url);
-      if (url.protocol !== "https:" || url.username || url.password) throw new Error("Download URL must be public HTTPS");
-      if ([...url.searchParams.keys()].some((key) => /signature|token|q-sign|x-cos-security|x-amz-/i.test(key))) throw new Error("Temporary signed URLs are not supported");
+      validateDownloadURL(file.url);
       let parent = "";
       for (const part of parts) {
         const child = parent ? `${parent}/${part}` : part;
@@ -63,7 +68,12 @@ function readManifest(data) {
       if (path && paths.has(path)) throw new Error("Conflicting file and folder path");
       directory.files.sort((a, b) => collator.compare(a.name, b.name));
     }
-    return { id: dataset.id, name: dataset.name, directories };
+    const archive = dataset.archive || null;
+    if (archive) {
+      if (!validName(archive.name) || !archive.name.endsWith(".zip") || !Number.isSafeInteger(archive.sizeBytes) || archive.sizeBytes <= 0 || archive.fileCount !== dataset.files.length || !/^[a-f0-9]{64}$/.test(archive.sha256)) throw new Error("Invalid dataset archive");
+      validateDownloadURL(archive.url);
+    }
+    return { id: dataset.id, name: dataset.name, directories, archive };
   }).sort((a, b) => collator.compare(a.name, b.name));
 }
 
@@ -114,11 +124,30 @@ function renderBreadcrumbs(dataset, path) {
   }
 }
 
-function folderRow(name, href, parent = false) {
+function downloadLink(file, className, text, label) {
+  const link = element("a", className, text);
+  link.href = file.url;
+  link.download = file.name;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.referrerPolicy = "no-referrer";
+  link.setAttribute("aria-label", label);
+  return link;
+}
+
+function folderRow(name, href, parent = false, archive = null) {
   const row = element("tr", parent ? "parent-row" : "folder-row");
   const nameCell = element("td");
   nameCell.append(folderLink(name, href, parent));
-  row.append(nameCell, element("td", "size", "—"), element("td", "action"));
+  const size = element("td", "size", archive ? formatSize(archive.sizeBytes) : "—");
+  const action = element("td", "action");
+  if (archive) {
+    size.title = `ZIP 压缩包大小：${archive.sizeBytes.toLocaleString("zh-CN")} 字节`;
+    const link = downloadLink(archive, "archive-link", "整包下载", `整包下载 ${name}`);
+    link.title = `ZIP · ${archive.fileCount} 个文件 · ${formatSize(archive.sizeBytes)}`;
+    action.append(link);
+  }
+  row.append(nameCell, size, action);
   return row;
 }
 
@@ -127,13 +156,7 @@ function fileRow(file) {
   const size = element("td", "size", formatSize(file.sizeBytes));
   if (file.sizeBytes !== null) size.title = `${file.sizeBytes.toLocaleString("zh-CN")} 字节`;
   const action = element("td", "action");
-  const link = element("a", "download-link", "下载");
-  link.href = file.url;
-  link.download = file.name;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.referrerPolicy = "no-referrer";
-  link.setAttribute("aria-label", `下载 ${file.name}`);
+  const link = downloadLink(file, "download-link", "下载", `下载 ${file.name}`);
   action.append(link);
   row.append(element("td", "file-name", file.name), size, action);
   return row;
@@ -143,13 +166,17 @@ function render() {
   const current = currentDirectory();
   const { dataset, path } = current || { dataset: null, path: "" };
   renderBreadcrumbs(dataset, path);
+  const archiveDownload = $("archive-download");
+  archiveDownload.replaceChildren();
+  archiveDownload.hidden = !dataset?.archive;
+  if (dataset?.archive) archiveDownload.append(downloadLink(dataset.archive, "archive-link", `下载整个 ${dataset.name}（ZIP · ${formatSize(dataset.archive.sizeBytes)}）`, `下载整个 ${dataset.name}`));
   const entries = [];
   if (dataset) {
     const directory = dataset.directories.get(path);
     for (const [name, child] of [...directory.folders].sort((a, b) => collator.compare(a[0], b[0]))) entries.push({ name, href: route(dataset, child) });
     for (const file of directory.files) entries.push({ file });
   } else {
-    for (const item of datasets) entries.push({ name: item.name, href: route(item) });
+    for (const item of datasets) entries.push({ name: item.name, href: route(item), archive: item.archive });
   }
   const pageCount = Math.max(1, Math.ceil(entries.length / PAGE_SIZE));
   currentPage = Math.min(currentPage, pageCount);
@@ -158,7 +185,7 @@ function render() {
     const parent = path ? route(dataset, path.split("/").slice(0, -1).join("/")) : route(null);
     fragment.append(folderRow(".. 返回上级", parent, true));
   }
-  for (const entry of entries.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)) fragment.append(entry.file ? fileRow(entry.file) : folderRow(entry.name, entry.href));
+  for (const entry of entries.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)) fragment.append(entry.file ? fileRow(entry.file) : folderRow(entry.name, entry.href, false, entry.archive));
   $("file-list").replaceChildren(fragment);
   $("table-wrap").hidden = false;
   $("status").textContent = !current ? "该目录不存在，请从目录首页重新进入。" : entries.length ? "" : "此目录为空。";

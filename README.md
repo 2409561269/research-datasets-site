@@ -59,6 +59,10 @@ python -m http.server 8000 --bind 127.0.0.1
 
 首页只显示数据集文件夹，目前为 `Jinze-FullChain`。点击进入后，只显示当前层的子文件夹和文件；通过路径导航或“返回上级”逐级浏览，不平铺展示全部 630 个文件。浏览器前进、后退和目录链接可用，直接打开目录链接也能恢复对应位置。单个目录超过 100 项时分页。
 
+Jinze-FullChain 文件夹右侧提供“整包下载”，进入目录后也有“下载整个 Jinze-FullChain”链接。一次下载一个 ZIP，解压后保留 Jinze-FullChain 顶层文件夹、完整相对目录和全部 630 个文件。单文件下载继续可用。表格首页的大小表示 ZIP 压缩包大小。
+
+整包存放在 COS 的 `datasets/Jinze-FullChain/_downloads/Jinze-FullChain.zip`，是独立派生文件，不属于原始 630 文件清单。`datasets.json` 中数据集的 `archive` 对象保存 `name`、`url`、`format`、`sizeBytes`、`fileCount` 和 `sha256`；只有整包内容、远端大小、CRC64 和匿名下载验证通过后才添加该对象。ZIP 在服务器数据盘生成并上传，浏览器直接下载，不在用户浏览器里抓取 630 个文件后再打包。
+
 目录根据静态清单生成，不是动态 COS 文件浏览器。清单一次读取到浏览器；今后如果清单达到数十万条，再按数据集拆分清单。10 TB 是 COS 数据量，不等同于页面或清单大小。
 
 ### 替换正式 COS 地址
@@ -119,6 +123,7 @@ git push origin main
 
 - 首页、styles.css、script.js、datasets.json 均返回 200。
 - 首页仅列出 Jinze-FullChain 文件夹，进入后逐级浏览；路径导航、返回上级、浏览器前进后退和手机宽度显示正常。
+- 首页“整包下载”和目录内“下载整个 Jinze-FullChain”指向同一个公开 ZIP；匿名 HEAD、Range 和 ZIP 中央目录检查正常，ZIP 内 630 个文件与正式清单一致。
 - 无痕窗口可浏览目录；630 个正式文件均可通过各自目录找到，测试条目已移除；数据集根目录 README.md 下载为 1,834 字节。
 - 下载请求主机是腾讯云 COS，不是网页托管域名。
 - 大文件 point_alignment.csv 小范围 GET 返回 206，Content-Range 总大小为 36,484,847。
