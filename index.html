@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="科研数据集公开下载目录，按文件名搜索，使用 HTTPS 直链下载数据文件。">
+  <meta name="color-scheme" content="light">
+  <title>科研数据集下载中心 | Research Dataset Download Center</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="科研数据集下载中心首页"><span class="brand-mark" aria-hidden="true">R<span> / </span>D</span><span>RESEARCH DATA<span class="brand-sub">开放数据 · 科研共享</span></span></a>
+      <a class="header-link" href="#instructions">下载说明 <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+  <main class="container">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span> OPEN RESEARCH RESOURCES</p>
+      <h1 id="page-title">科研数据集下载中心</h1>
+      <p class="english-title" lang="en">Research Dataset Download Center</p>
+      <p class="intro-copy">在这里查找并获取研究数据。浏览目录、筛选文件，即可通过公开链接直接下载，无需登录。</p>
+      <div class="summary" aria-label="数据目录概况">
+        <div><strong id="dataset-count">—</strong><span>数据集</span></div>
+        <div><strong id="file-count">—</strong><span>公开文件</span></div>
+        <div><strong id="total-size">—</strong><span id="size-caption">已知文件大小</span></div>
+        <div class="summary-note"><span class="small-icon" aria-hidden="true">↘</span><span>公开链接<br><b>直接下载</b></span></div>
+      </div>
+    </section>
+    <section class="catalog" aria-labelledby="catalog-title">
+      <div class="section-heading"><div><p class="eyebrow">DATA CATALOG</p><h2 id="catalog-title">数据文件目录</h2></div><span class="catalog-label">静态文件清单</span></div>
+      <div class="catalog-layout">
+        <aside class="sidebar" aria-label="目录筛选">
+          <label class="field-label" for="dataset-filter">数据集</label>
+          <select id="dataset-filter" disabled><option value="">全部数据集</option></select>
+          <label class="field-label folder-label" for="folder-filter">文件夹</label>
+          <select id="folder-filter" disabled><option value="">全部文件夹</option></select>
+          <div class="sidebar-note"><span aria-hidden="true">⌁</span><p>当前提供公开测试文件，用于检查访问和下载流程。</p></div>
+        </aside>
+        <div class="file-panel">
+          <div class="toolbar"><label class="search-box" for="search"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input id="search" type="search" placeholder="搜索文件名、目录或描述…" autocomplete="off" disabled></label><label class="type-label"><span class="sr-only">文件类型</span><select id="type-filter" disabled><option value="">全部类型</option></select></label></div>
+          <div class="results-heading"><p id="results-count" role="status" aria-live="polite">正在加载文件清单…</p><button id="clear-filters" class="text-button" hidden>清除筛选</button></div>
+          <div id="load-error" class="message error" role="alert" hidden><strong>文件清单暂时无法加载</strong><p>请检查网络后重试。如持续失败，请联系网站维护者检查 datasets.json。</p><button id="retry" class="secondary-button">重新加载</button></div>
+          <noscript><p class="message">请启用 JavaScript 以加载文件目录。也可以直接查看 <a href="./datasets.json">JSON 文件清单</a>中的公开下载地址。</p></noscript>
+          <div class="table-wrap" id="table-wrap" hidden><table><thead><tr><th scope="col">文件名称</th><th scope="col">类型</th><th scope="col">文件大小</th><th scope="col" class="action-column">下载</th></tr></thead><tbody id="file-list"></tbody></table></div>
+          <div id="empty-state" class="message empty" hidden><span aria-hidden="true">⌕</span><strong>没有找到匹配的文件</strong><p>试试其他关键词，或清除筛选查看全部文件。</p></div>
+          <nav id="pagination" class="pagination" aria-label="文件列表分页" hidden><button id="previous-page" class="secondary-button">上一页</button><span id="page-info"></span><button id="next-page" class="secondary-button">下一页</button></nav>
+          <p class="panel-footnote">文件由腾讯云 COS 提供 · 点击下载将直接连接文件存储地址</p>
+        </div>
+      </div>
+    </section>
+    <section id="instructions" class="instructions" aria-labelledby="instructions-title"><div><p class="eyebrow">GETTING STARTED</p><h2 id="instructions-title">下载说明</h2><p>从目录到本地，三个简单步骤。</p></div><ol><li><span>01</span><div><h3>找到所需文件</h3><p>按数据集、文件夹或文件类型筛选，也可以直接搜索文件名。</p></div></li><li><span>02</span><div><h3>点击下载</h3><p>文件通过 HTTPS 公开链接下载。若文件在新标签页打开，可使用浏览器的“另存为”。</p></div></li><li><span>03</span><div><h3>保存并检查</h3><p>下载后核对文件大小。大文件建议使用支持断点续传的工具，并保留完整下载链接。</p></div></li></ol></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><span>Research Dataset Download Center</span><span>开放数据，让研究更进一步。</span></div></footer>
+</body>
+</html>

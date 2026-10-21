@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+.env
+.env.*
+.netlify/
+node_modules/
+*.log
+*.zip
+*.bin
+*.pem
+*.key

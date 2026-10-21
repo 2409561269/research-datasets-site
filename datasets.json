@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "datasets": [
+    {
+      "id": "public-tests",
+      "name": "公开下载测试集",
+      "description": "用于验证公开下载、HTTPS 链接和断点续传的小型测试文件。",
+      "files": [
+        {
+          "id": "test-public-txt",
+          "folder": "public-tests",
+          "name": "test-public.txt",
+          "sizeBytes": 151,
+          "type": "TXT",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/public-tests/test-public.txt",
+          "description": "文本测试文件，用于检查匿名访问和基本下载。"
+        },
+        {
+          "id": "test-range-bin",
+          "folder": "public-tests",
+          "name": "test-range.bin",
+          "sizeBytes": 8388608,
+          "type": "BIN",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/public-tests/test-range.bin",
+          "description": "8 MiB 二进制测试文件，用于检查 Range 请求和断点续传。"
+        }
+      ]
+    }
+  ]
+}
