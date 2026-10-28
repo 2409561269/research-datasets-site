@@ -70,10 +70,11 @@ function readManifest(data) {
     }
     const archive = dataset.archive || null;
     if (archive) {
-      if (!validName(archive.name) || !archive.name.endsWith(".zip") || !Number.isSafeInteger(archive.sizeBytes) || archive.sizeBytes <= 0 || archive.fileCount !== dataset.files.length || !/^[a-f0-9]{64}$/.test(archive.sha256)) throw new Error("Invalid dataset archive");
+      if (!validName(archive.name) || !archive.name.endsWith(".zip") || !Number.isSafeInteger(archive.sizeBytes) || archive.sizeBytes <= 0 || archive.fileCount !== dataset.files.length || (archive.sha256 != null && !/^[a-f0-9]{64}$/.test(archive.sha256))) throw new Error("Invalid dataset archive");
       validateDownloadURL(archive.url);
     }
-    return { id: dataset.id, name: dataset.name, directories, archive };
+    if (dataset.notice !== undefined && typeof dataset.notice !== "string") throw new Error("Invalid dataset notice");
+    return { id: dataset.id, name: dataset.name, directories, archive, notice: dataset.notice || "" };
   }).sort((a, b) => collator.compare(a.name, b.name));
 }
 
@@ -166,10 +167,16 @@ function render() {
   const current = currentDirectory();
   const { dataset, path } = current || { dataset: null, path: "" };
   renderBreadcrumbs(dataset, path);
+  const notice = dataset ? dataset.notice : datasets.map((item) => item.notice).filter(Boolean).join(" ");
+  $("dataset-notice").textContent = notice;
+  $("dataset-notice").hidden = !notice;
   const archiveDownload = $("archive-download");
   archiveDownload.replaceChildren();
   archiveDownload.hidden = !dataset?.archive;
-  if (dataset?.archive) archiveDownload.append(downloadLink(dataset.archive, "archive-link", `下载整个 ${dataset.name}（ZIP · ${formatSize(dataset.archive.sizeBytes)}）`, `下载整个 ${dataset.name}`));
+  if (dataset?.archive) {
+    const label = dataset.notice ? `下载 ${dataset.name} 已发布文件` : `下载整个 ${dataset.name}`;
+    archiveDownload.append(downloadLink(dataset.archive, "archive-link", `${label}（ZIP · ${formatSize(dataset.archive.sizeBytes)}）`, label));
+  }
   const entries = [];
   if (dataset) {
     const directory = dataset.directories.get(path);

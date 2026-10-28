@@ -19,6 +19,7 @@ tbody tr:hover { background: #fafafa; }
 .size { width: 120px; color: #666; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .action { width: 100px; text-align: right; }
 #archive-download { margin: 0 0 16px; font-size: 14px; line-height: 1.7; overflow-wrap: anywhere; }
+#dataset-notice { margin: 0 0 16px; color: #666; font-size: 13px; line-height: 1.7; overflow-wrap: anywhere; }
 .folder-link { display: inline-flex; align-items: baseline; gap: 9px; max-width: 100%; }
 .folder-icon { width: 18px; height: 16px; flex-shrink: 0; align-self: center; fill: none; stroke: #777; stroke-width: 1.5; }
 .folder-link span { min-width: 0; overflow-wrap: anywhere; }

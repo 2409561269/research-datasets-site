@@ -5055,6 +5055,725 @@
         "fileCount": 630,
         "sha256": "203616f1bce6651c16750862b866c00dbd5a6059679ce51f84152e7d00e2d3ec"
       }
+    },
+    {
+      "id": "radaruav-fullchain",
+      "name": "RadarUAV-FullChain",
+      "description": "本次发布 88 个普通文件，按场景和序列组织；不含 RD 软链接及其实际数据。按用户要求未做上传后完整性校验。",
+      "notice": "RadarUAV-FullChain：当前提供 88 个普通文件，不含 RD 数据。",
+      "files": [
+        {
+          "id": "b335630551682c19a781",
+          "folder": "",
+          "name": "README.md",
+          "sizeBytes": 4593,
+          "type": "MD",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/README.md"
+        },
+        {
+          "id": "66708efa81f0e2bcbf7e",
+          "folder": "",
+          "name": "dataset_integrity_report.txt",
+          "sizeBytes": 1316,
+          "type": "TXT",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/dataset_integrity_report.txt"
+        },
+        {
+          "id": "adcfd4bc996166afb9af",
+          "folder": "",
+          "name": "dataset_manifest.yaml",
+          "sizeBytes": 16103,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/dataset_manifest.yaml"
+        },
+        {
+          "id": "fd559b687161b4341b58",
+          "folder": "metadata/maps",
+          "name": "scene1_map_coverage.jpg",
+          "sizeBytes": 262610,
+          "type": "JPG",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/metadata/maps/scene1_map_coverage.jpg"
+        },
+        {
+          "id": "82acce535d958350238d",
+          "folder": "metadata/maps",
+          "name": "scene2_map_coverage.jpg",
+          "sizeBytes": 259169,
+          "type": "JPG",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/metadata/maps/scene2_map_coverage.jpg"
+        },
+        {
+          "id": "4559621d6564cf05f990",
+          "folder": "metadata",
+          "name": "radar_specs.yaml",
+          "sizeBytes": 3451,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/metadata/radar_specs.yaml"
+        },
+        {
+          "id": "90a66fbae84a72bf8757",
+          "folder": "metadata",
+          "name": "scenario_definition.yaml",
+          "sizeBytes": 4477,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/metadata/scenario_definition.yaml"
+        },
+        {
+          "id": "7e1fb28044a405e8bfb3",
+          "folder": "metadata",
+          "name": "site_geo.yaml",
+          "sizeBytes": 788,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/metadata/site_geo.yaml"
+        },
+        {
+          "id": "cbce21f605a080769c94",
+          "folder": "metadata",
+          "name": "trajectory_patterns.yaml",
+          "sizeBytes": 6534,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/metadata/trajectory_patterns.yaml"
+        },
+        {
+          "id": "a310f1f31a895e050fa7",
+          "folder": "metadata",
+          "name": "uav_catalog.yaml",
+          "sizeBytes": 2013,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/metadata/uav_catalog.yaml"
+        },
+        {
+          "id": "026bd7878a9da2a72b6a",
+          "folder": "scenarios/东南/seq_20250527_1/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 458383368,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_1/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "d593b14bd774dff7fab1",
+          "folder": "scenarios/东南/seq_20250527_1",
+          "name": "attributes.yaml",
+          "sizeBytes": 2449,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_1/attributes.yaml"
+        },
+        {
+          "id": "f037fbcedfd746273c0b",
+          "folder": "scenarios/东南/seq_20250527_1/ground_truth",
+          "name": "dji_track_coordinates_20250527_1_350.csv",
+          "sizeBytes": 567354,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_1/ground_truth/dji_track_coordinates_20250527_1_350.csv"
+        },
+        {
+          "id": "9027bf8db2a3ea3b494c",
+          "folder": "scenarios/东南/seq_20250527_1/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 2201467,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_1/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "3435e186f9f8551e3cc7",
+          "folder": "scenarios/东南/seq_20250527_1/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 46078283,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_1/ground_truth/info.json"
+        },
+        {
+          "id": "c39aeaa7389ac6919e11",
+          "folder": "scenarios/东南/seq_20250527_1/ground_truth",
+          "name": "relative_coordinates_20250527_1_350.csv",
+          "sizeBytes": 575924,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_1/ground_truth/relative_coordinates_20250527_1_350.csv"
+        },
+        {
+          "id": "82fc3bad583149241c31",
+          "folder": "scenarios/东南/seq_20250527_2/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 736942484,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_2/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "3192dbb510c7272424e0",
+          "folder": "scenarios/东南/seq_20250527_2",
+          "name": "attributes.yaml",
+          "sizeBytes": 2458,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_2/attributes.yaml"
+        },
+        {
+          "id": "fa37f1f041194f3d9825",
+          "folder": "scenarios/东南/seq_20250527_2/ground_truth",
+          "name": "dji_track_coordinates_20250527_2_350.csv",
+          "sizeBytes": 829116,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_2/ground_truth/dji_track_coordinates_20250527_2_350.csv"
+        },
+        {
+          "id": "74a9aa90c6c8547e4ecd",
+          "folder": "scenarios/东南/seq_20250527_2/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 3221487,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_2/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "8d36d7c67d80d5bef731",
+          "folder": "scenarios/东南/seq_20250527_2/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 66868499,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_2/ground_truth/info.json"
+        },
+        {
+          "id": "2ba8d10afae9cc63a153",
+          "folder": "scenarios/东南/seq_20250527_2/ground_truth",
+          "name": "relative_coordinates_20250527_2_350.csv",
+          "sizeBytes": 841081,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_2/ground_truth/relative_coordinates_20250527_2_350.csv"
+        },
+        {
+          "id": "ede2d736c72e7fbee599",
+          "folder": "scenarios/东南/seq_20250527_3/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 406155552,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_3/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "9013683e50453e7c3bc1",
+          "folder": "scenarios/东南/seq_20250527_3",
+          "name": "attributes.yaml",
+          "sizeBytes": 2458,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_3/attributes.yaml"
+        },
+        {
+          "id": "dd0a25ed7efd995ce344",
+          "folder": "scenarios/东南/seq_20250527_3/ground_truth",
+          "name": "dji_track_coordinates_20250527_3_350.csv",
+          "sizeBytes": 715179,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_3/ground_truth/dji_track_coordinates_20250527_3_350.csv"
+        },
+        {
+          "id": "1b4a35eeff5def105374",
+          "folder": "scenarios/东南/seq_20250527_3/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 2770510,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_3/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "fd0af496659454576340",
+          "folder": "scenarios/东南/seq_20250527_3/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 57651823,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_3/ground_truth/info.json"
+        },
+        {
+          "id": "2121e57e71d93e577bc4",
+          "folder": "scenarios/东南/seq_20250527_3/ground_truth",
+          "name": "relative_coordinates_20250527_3_350.csv",
+          "sizeBytes": 725407,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_3/ground_truth/relative_coordinates_20250527_3_350.csv"
+        },
+        {
+          "id": "a78081143dc787b8c36d",
+          "folder": "scenarios/东南/seq_20250527_4/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 355760265,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_4/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "df06f7f7bfd33d9ffa8c",
+          "folder": "scenarios/东南/seq_20250527_4",
+          "name": "attributes.yaml",
+          "sizeBytes": 2440,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_4/attributes.yaml"
+        },
+        {
+          "id": "07fef22ef72f8d636dd5",
+          "folder": "scenarios/东南/seq_20250527_4/ground_truth",
+          "name": "dji_track_coordinates_20250527_4_350.csv",
+          "sizeBytes": 573434,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_4/ground_truth/dji_track_coordinates_20250527_4_350.csv"
+        },
+        {
+          "id": "aa06827fb575b047dd03",
+          "folder": "scenarios/东南/seq_20250527_4/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 2225820,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_4/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "636823ba4feeb220d58a",
+          "folder": "scenarios/东南/seq_20250527_4/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 46462149,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_4/ground_truth/info.json"
+        },
+        {
+          "id": "4d767fc20aa60098a2a9",
+          "folder": "scenarios/东南/seq_20250527_4/ground_truth",
+          "name": "relative_coordinates_20250527_4_350.csv",
+          "sizeBytes": 580172,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_4/ground_truth/relative_coordinates_20250527_4_350.csv"
+        },
+        {
+          "id": "71fad1aa713ee4c1e54a",
+          "folder": "scenarios/东南/seq_20250527_5/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 209156177,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_5/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "9dd73c43db30aefbc3d3",
+          "folder": "scenarios/东南/seq_20250527_5",
+          "name": "attributes.yaml",
+          "sizeBytes": 2456,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_5/attributes.yaml"
+        },
+        {
+          "id": "9f8c56081cac0a6e2f0f",
+          "folder": "scenarios/东南/seq_20250527_5/ground_truth",
+          "name": "dji_track_coordinates_20250527_5_350.csv",
+          "sizeBytes": 625602,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_5/ground_truth/dji_track_coordinates_20250527_5_350.csv"
+        },
+        {
+          "id": "1b1a741943fce6bf70e7",
+          "folder": "scenarios/东南/seq_20250527_5/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 2434171,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_5/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "cf0e69b0cac7f5fc8ab8",
+          "folder": "scenarios/东南/seq_20250527_5/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 55251572,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_5/ground_truth/info.json"
+        },
+        {
+          "id": "22b03709118d108c5536",
+          "folder": "scenarios/东南/seq_20250527_5/ground_truth",
+          "name": "relative_coordinates_20250527_5_350.csv",
+          "sizeBytes": 635327,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_5/ground_truth/relative_coordinates_20250527_5_350.csv"
+        },
+        {
+          "id": "e27154dc30c505140771",
+          "folder": "scenarios/东南/seq_20250527_6/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 230287934,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_6/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "4ed140460dac7677505b",
+          "folder": "scenarios/东南/seq_20250527_6",
+          "name": "attributes.yaml",
+          "sizeBytes": 2446,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_6/attributes.yaml"
+        },
+        {
+          "id": "7883483c838d19447cc3",
+          "folder": "scenarios/东南/seq_20250527_6/ground_truth",
+          "name": "dji_track_coordinates_20250527_6_3T_0.csv",
+          "sizeBytes": 250497,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_6/ground_truth/dji_track_coordinates_20250527_6_3T_0.csv"
+        },
+        {
+          "id": "9fbfc8f652e78c37cefe",
+          "folder": "scenarios/东南/seq_20250527_6/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 947779,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_6/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "844210f3e41604dcadf9",
+          "folder": "scenarios/东南/seq_20250527_6/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 23969364,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_6/ground_truth/info.json"
+        },
+        {
+          "id": "ac8f57b4c08fec61c374",
+          "folder": "scenarios/东南/seq_20250527_6/ground_truth",
+          "name": "relative_coordinates_20250527_6_3T_0.csv",
+          "sizeBytes": 253867,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_6/ground_truth/relative_coordinates_20250527_6_3T_0.csv"
+        },
+        {
+          "id": "614812ce60beaf6d9f29",
+          "folder": "scenarios/东南/seq_20250527_7/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 92154527,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_7/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "c838aa9ae3146793d1dd",
+          "folder": "scenarios/东南/seq_20250527_7",
+          "name": "attributes.yaml",
+          "sizeBytes": 2515,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_7/attributes.yaml"
+        },
+        {
+          "id": "f1a043fd2036e8d2a43e",
+          "folder": "scenarios/东南/seq_20250527_7/ground_truth",
+          "name": "dji_track_coordinates_20250527_7_3T_2.csv",
+          "sizeBytes": 200776,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_7/ground_truth/dji_track_coordinates_20250527_7_3T_2.csv"
+        },
+        {
+          "id": "40b24541f704e7d05534",
+          "folder": "scenarios/东南/seq_20250527_7/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 785273,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_7/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "570a496d8b42ba2c63db",
+          "folder": "scenarios/东南/seq_20250527_7/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 20188334,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_7/ground_truth/info.json"
+        },
+        {
+          "id": "d32a722edd4f871422bb",
+          "folder": "scenarios/东南/seq_20250527_7/ground_truth",
+          "name": "relative_coordinates_20250527_7_3T_2.csv",
+          "sizeBytes": 204154,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E4%B8%9C%E5%8D%97/seq_20250527_7/ground_truth/relative_coordinates_20250527_7_3T_2.csv"
+        },
+        {
+          "id": "84565f825b3d82359c33",
+          "folder": "scenarios/正西/seq_20250525_3/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 501983248,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_3/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "823b488f79ca34475bd0",
+          "folder": "scenarios/正西/seq_20250525_3",
+          "name": "attributes.yaml",
+          "sizeBytes": 2568,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_3/attributes.yaml"
+        },
+        {
+          "id": "aafde61f47749de32229",
+          "folder": "scenarios/正西/seq_20250525_3/ground_truth",
+          "name": "dji_track_coordinates_20250525_3_350.csv",
+          "sizeBytes": 550339,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_3/ground_truth/dji_track_coordinates_20250525_3_350.csv"
+        },
+        {
+          "id": "7cb19110b1455b1c9ecf",
+          "folder": "scenarios/正西/seq_20250525_3/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 2160884,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_3/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "4997d42314135d99ad9c",
+          "folder": "scenarios/正西/seq_20250525_3/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 44457565,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_3/ground_truth/info.json"
+        },
+        {
+          "id": "589f5748de820e4bb5b8",
+          "folder": "scenarios/正西/seq_20250525_3/ground_truth",
+          "name": "relative_coordinates_20250525_3_350.csv",
+          "sizeBytes": 565244,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_3/ground_truth/relative_coordinates_20250525_3_350.csv"
+        },
+        {
+          "id": "c5c54a7c5fbc7d77ab92",
+          "folder": "scenarios/正西/seq_20250525_4/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 94893387,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_4/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "6c1e8985001905ddfd3b",
+          "folder": "scenarios/正西/seq_20250525_4",
+          "name": "attributes.yaml",
+          "sizeBytes": 2476,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_4/attributes.yaml"
+        },
+        {
+          "id": "bd1bd85e83f49098a960",
+          "folder": "scenarios/正西/seq_20250525_4/ground_truth",
+          "name": "dji_track_coordinates_20250525_4_3T_0.csv",
+          "sizeBytes": 250146,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_4/ground_truth/dji_track_coordinates_20250525_4_3T_0.csv"
+        },
+        {
+          "id": "e95a06a82156c87b946f",
+          "folder": "scenarios/正西/seq_20250525_4/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 977639,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_4/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "61075dea57a7e0f26186",
+          "folder": "scenarios/正西/seq_20250525_4/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 23187180,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_4/ground_truth/info.json"
+        },
+        {
+          "id": "f3c9565ebfcaeae85308",
+          "folder": "scenarios/正西/seq_20250525_4/ground_truth",
+          "name": "relative_coordinates_20250525_4_3T_0.csv",
+          "sizeBytes": 254118,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_4/ground_truth/relative_coordinates_20250525_4_3T_0.csv"
+        },
+        {
+          "id": "fbe2672ab6552fab3038",
+          "folder": "scenarios/正西/seq_20250525_5/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 347925503,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_5/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "5b0d7cb642f55c1df50c",
+          "folder": "scenarios/正西/seq_20250525_5",
+          "name": "attributes.yaml",
+          "sizeBytes": 2547,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_5/attributes.yaml"
+        },
+        {
+          "id": "f213a7fd540e0774aff0",
+          "folder": "scenarios/正西/seq_20250525_5/ground_truth",
+          "name": "dji_track_coordinates_20250525_5_350.csv",
+          "sizeBytes": 699059,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_5/ground_truth/dji_track_coordinates_20250525_5_350.csv"
+        },
+        {
+          "id": "44656b444ff272ec3f0d",
+          "folder": "scenarios/正西/seq_20250525_5/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 2699532,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_5/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "4191a619cbfeb203e203",
+          "folder": "scenarios/正西/seq_20250525_5/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 61846672,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_5/ground_truth/info.json"
+        },
+        {
+          "id": "124c07ee317edbf84f3d",
+          "folder": "scenarios/正西/seq_20250525_5/ground_truth",
+          "name": "relative_coordinates_20250525_5_350.csv",
+          "sizeBytes": 705336,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250525_5/ground_truth/relative_coordinates_20250525_5_350.csv"
+        },
+        {
+          "id": "c7d0805c7cdbb336f580",
+          "folder": "scenarios/正西/seq_20250526_1/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 147708375,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_1/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "7d71c53fbfe21906b33a",
+          "folder": "scenarios/正西/seq_20250526_1",
+          "name": "attributes.yaml",
+          "sizeBytes": 2484,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_1/attributes.yaml"
+        },
+        {
+          "id": "2e65fba6ab9cc43c37da",
+          "folder": "scenarios/正西/seq_20250526_1/ground_truth",
+          "name": "dji_track_coordinates_20250526_1_3T_0.csv",
+          "sizeBytes": 152124,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_1/ground_truth/dji_track_coordinates_20250526_1_3T_0.csv"
+        },
+        {
+          "id": "3aff76e49c25839e6a7f",
+          "folder": "scenarios/正西/seq_20250526_1/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 591298,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_1/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "1347fee06421c6ea65bb",
+          "folder": "scenarios/正西/seq_20250526_1/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 15294682,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_1/ground_truth/info.json"
+        },
+        {
+          "id": "adc72fdd7ee436ecafa1",
+          "folder": "scenarios/正西/seq_20250526_1/ground_truth",
+          "name": "relative_coordinates_20250526_1_3T_0.csv",
+          "sizeBytes": 153296,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_1/ground_truth/relative_coordinates_20250526_1_3T_0.csv"
+        },
+        {
+          "id": "447f476b8c4b65dbd29e",
+          "folder": "scenarios/正西/seq_20250526_2/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 260045858,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_2/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "a24be21a5d8ee746651c",
+          "folder": "scenarios/正西/seq_20250526_2",
+          "name": "attributes.yaml",
+          "sizeBytes": 2470,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_2/attributes.yaml"
+        },
+        {
+          "id": "f9b2d7892bc28e16efcf",
+          "folder": "scenarios/正西/seq_20250526_2/ground_truth",
+          "name": "dji_track_coordinates_20250526_2_350.csv",
+          "sizeBytes": 488846,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_2/ground_truth/dji_track_coordinates_20250526_2_350.csv"
+        },
+        {
+          "id": "3facccbed7af604e26e6",
+          "folder": "scenarios/正西/seq_20250526_2/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 1902481,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_2/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "e0b92418e0d88b057a71",
+          "folder": "scenarios/正西/seq_20250526_2/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 45560375,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_2/ground_truth/info.json"
+        },
+        {
+          "id": "507e6c96cd2d0d3f5874",
+          "folder": "scenarios/正西/seq_20250526_2/ground_truth",
+          "name": "relative_coordinates_20250526_2_350.csv",
+          "sizeBytes": 498653,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_2/ground_truth/relative_coordinates_20250526_2_350.csv"
+        },
+        {
+          "id": "d1884e390de324aa74d5",
+          "folder": "scenarios/正西/seq_20250526_4/L2_tracking/track_segments",
+          "name": "rdsliced_true_result.csv",
+          "sizeBytes": 288190324,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_4/L2_tracking/track_segments/rdsliced_true_result.csv"
+        },
+        {
+          "id": "f8f4a5daffcbd95f3606",
+          "folder": "scenarios/正西/seq_20250526_4",
+          "name": "attributes.yaml",
+          "sizeBytes": 2488,
+          "type": "YAML",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_4/attributes.yaml"
+        },
+        {
+          "id": "bb52acea5ba4ba16272c",
+          "folder": "scenarios/正西/seq_20250526_4/ground_truth",
+          "name": "dji_track_coordinates_20250526_4_350.csv",
+          "sizeBytes": 490509,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_4/ground_truth/dji_track_coordinates_20250526_4_350.csv"
+        },
+        {
+          "id": "f132ba92bd02cd67d026",
+          "folder": "scenarios/正西/seq_20250526_4/ground_truth",
+          "name": "gps_aligned.csv",
+          "sizeBytes": 1942567,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_4/ground_truth/gps_aligned.csv"
+        },
+        {
+          "id": "9698a8cdd0b71fee29c9",
+          "folder": "scenarios/正西/seq_20250526_4/ground_truth",
+          "name": "info.json",
+          "sizeBytes": 43943876,
+          "type": "JSON",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_4/ground_truth/info.json"
+        },
+        {
+          "id": "9464d4b37252882272a8",
+          "folder": "scenarios/正西/seq_20250526_4/ground_truth",
+          "name": "relative_coordinates_20250526_4_350.csv",
+          "sizeBytes": 503034,
+          "type": "CSV",
+          "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/scenarios/%E6%AD%A3%E8%A5%BF/seq_20250526_4/ground_truth/relative_coordinates_20250526_4_350.csv"
+        }
+      ],
+      "archive": {
+        "name": "RadarUAV-FullChain.zip",
+        "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/_downloads/RadarUAV-FullChain.zip",
+        "format": "ZIP",
+        "sizeBytes": 2127310024,
+        "fileCount": 88
+      }
     }
   ]
 }
