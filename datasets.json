@@ -5059,8 +5059,7 @@
     {
       "id": "radaruav-fullchain",
       "name": "RadarUAV-FullChain",
-      "description": "本次发布 88 个普通文件，按场景和序列组织；不含 RD 软链接及其实际数据。按用户要求未做上传后完整性校验。",
-      "notice": "RadarUAV-FullChain：当前提供 88 个普通文件，不含 RD 数据。",
+      "description": "按场景和采集序列组织，提供 RD 独立分包以及航迹与标注文件。RD 分包完成上传后逐批发布。",
       "files": [
         {
           "id": "b335630551682c19a781",
@@ -5772,8 +5771,11 @@
         "url": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/_downloads/RadarUAV-FullChain.zip",
         "format": "ZIP",
         "sizeBytes": 2127310024,
-        "fileCount": 88
-      }
+        "fileCount": 88,
+        "label": "航迹与标注包"
+      },
+      "rdCatalogUrl": "https://research-datasets-test-1511906351.cos.ap-shanghai.myqcloud.com/datasets/RadarUAV-FullChain/_catalog/rd-downloads.json",
+      "downloadRoot": "scenarios"
     }
   ]
 }

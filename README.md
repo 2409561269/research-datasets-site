@@ -51,7 +51,9 @@ python -m http.server 8000 --bind 127.0.0.1
 - `url`：真实、可匿名访问、无签名有效期的 HTTPS 地址。示例中的 YOUR-BUCKET 是占位符，需要替换。
 - `description`：可选纯文本。
 
-目前提供 Jinze-FullChain（630 个文件，1,301,948,314 字节）和 RadarUAV-FullChain 已发布部分（88 个普通文件，4,718,690,187 字节，不含 RD 数据）。均保留原相对目录、名称和内容。Jinze-FullChain 发布时完成了大小和 CRC64 核验；RadarUAV-FullChain 按用户要求不做上传后的完整性校验，其清单基于上传客户端的成功记录。不要将 RadarUAV-FullChain 描述为全量 RD 数据或完整性校验通过。界面以二进制单位显示，鼠标悬停可查看准确字节数。
+目前提供 Jinze-FullChain 和 RadarUAV-FullChain。Jinze 保留原有 630 个文件及整包下载。RadarUAV 提供航迹与标注文件，并按场景、序列和原始编号范围逐批发布 RD 分包。RD 全量为 37,463 个 NPZ 文件、6,757,099,495,932 字节，规划 1,788 个独立 ZIP；网站只列出已完成上传并开放下载的分包。界面以二进制单位显示，鼠标悬停可查看准确字节数。
+
+Jinze 发布时完成过大小和 CRC64 核验；RadarUAV 依据上传客户端成功结果发布，按任务要求不做上传后数据完整性校验，不得声称该数据集已通过哈希/CRC64 核验。
 
 ### 增加新数据集和文件夹
 
@@ -59,11 +61,25 @@ python -m http.server 8000 --bind 127.0.0.1
 
 首页只显示 `Jinze-FullChain` 和 `RadarUAV-FullChain` 两个数据集文件夹。点击进入后，只显示当前层的子文件夹和文件；通过路径导航或“返回上级”逐级浏览，不平铺展示所有文件。浏览器前进、后退和目录链接可用，直接打开目录链接也能恢复对应位置。单个目录超过 100 项时分页。
 
-两个文件夹右侧均提供“整包下载”，进入目录后也有对应整包链接。一次下载一个 ZIP，解压后保留数据集顶层文件夹及已发布文件的相对目录。Jinze 包含 630 个文件，RadarUAV 包含本次已上传的 88 个普通文件，不包含 RD 软链接及其实际数据。单文件下载继续可用。表格首页的大小表示 ZIP 压缩包大小。
+Jinze-FullChain 文件夹右侧提供“整包下载”。RadarUAV-FullChain 右侧为“分包下载”，进入场景后可按序列选择 RD 分包；航迹与标注另有约 1.98 GiB 的 ZIP，不将它标成全量 RD 整包。首页 RadarUAV 的大小为当前已发布 RD 分包合计。
 
 整包存放在对应 COS 数据集前缀的 `_downloads/` 下，是独立派生文件，不属于原始文件条目。`datasets.json` 中数据集的 `archive` 对象保存 `name`、`url`、`format`、`sizeBytes` 和 `fileCount`，`sha256` 为可选项，只有实际计算时才填写。Jinze 原有摘要保留；RadarUAV 按用户要求不新增整包哈希校验。ZIP 在服务器数据盘生成并上传，浏览器直接下载，不在用户浏览器里逐一获取文件后再打包。
 
 目录根据静态清单生成，不是动态 COS 文件浏览器。清单一次读取到浏览器；今后如果清单达到数十万条，再按数据集拆分清单。10 TB 是 COS 数据量，不等同于页面或清单大小。
+
+### RD 下载层级与持续发布
+
+下载层级为：RadarUAV-FullChain → scenarios → 场景 → 序列 → L1_rd_map → 编号范围分包。序列列表行右侧的“RD 分包”可直接进入下载层，不需要进入 rd、rd_fangwei、rd_fuyang 后逐个下载 NPZ。
+
+每个 RD ZIP 不超过约 4 GiB，按同一原始编号范围汇集三类 RD。分包独立解压后保留 RadarUAV-FullChain/scenarios/场景/序列/L1_rd_map/类型/原文件名，无需拼接压缩包。NPZ 本身已经压缩，外层采用 ZIP_STORED，不重复压缩；云端以这些分包作为 RD 存储形式，不另外再保存一套原始 NPZ，避免容量翻倍。
+
+每个序列提供 aria2 批量下载任务清单和纯网址清单，均只包含已发布分包。任务清单在浏览器中由少量文本生成，不缓存数据包内容。清单更新后可重新获取，使用 aria2 的 `-c` 续传。网站提供折叠的命令示例。
+
+`rdCatalogUrl` 指向同一 RadarUAV COS 前缀下的 `_catalog/rd-downloads.json`。服务器每完成一个分包并设置该对象匿名只读后，更新这个公开 JSON；两个网站每 60 秒或重新切回页面时读取更新。无需为后续每个分包再次部署网站。目录加载失败时保留现有目录，航迹与标注及 Jinze 下载仍可用。页面显示实际已发布数量，不提前把 1,788 个规划分包显示为可下载。
+
+该 JSON 使用只读 CORS，允许 GitHub Pages、现有 Netlify 网站和本机 127.0.0.1:8765 的 GET/HEAD。CORS 不改变对象 ACL，不授权匿名列桶或写入。网页不持有云密钥，不调用 COS ListObjects。
+
+源数据已知缺项：seq_20250525_4 的原始编号 359550–359774 仅有 rd 与 rd_fangwei。按源文件实际内容提供，在对应序列说明中显示，不补造 rd_fuyang。
 
 ### 替换正式 COS 地址
 
@@ -122,7 +138,7 @@ git push origin main
 ## 上线检查
 
 - 首页、styles.css、script.js、datasets.json 均返回 200。
-- 首页仅列出 Jinze-FullChain 与 RadarUAV-FullChain 两个文件夹；RadarUAV 部分发布说明可见。进入后逐级浏览，路径导航、返回上级、浏览器前进后退和手机宽度显示正常。
+- 首页仅列出 Jinze-FullChain 与 RadarUAV-FullChain 两个文件夹；原有 88 文件提示已移除，RD 已发布分包计数可见。进入后逐级浏览，路径导航、返回上级、浏览器前进后退和手机宽度显示正常。
 - 首页“整包下载”和目录内“下载整个 Jinze-FullChain”指向同一个公开 ZIP；匿名 HEAD、Range 和 ZIP 中央目录检查正常，ZIP 内 630 个文件与正式清单一致。
 - 无痕窗口可浏览目录；630 个正式文件均可通过各自目录找到，测试条目已移除；数据集根目录 README.md 下载为 1,834 字节。
 - 下载请求主机是腾讯云 COS，不是网页托管域名。
